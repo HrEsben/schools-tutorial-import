@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Skole</title>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+  </head>
+  <body>
+    <div class="search-container">
+      <h1>Find Din Skole</h1>
+      <div id="geocoder"></div>
+      <div>
+        <label for="school-type">Vælg skole type:</label>
+        <select id="school-type">
+          <option value="all">Alle</option>
+          <option value="folkeskoler">Folkeskoler</option>
+          <option value="friskoler">Friskoler</option>
+          <option value="behandlingstilbud">Behandlingstilbud</option>
+          <option value="specialskoler">Specialskoler</option>
+          <option value="ungdomsskoler">Ungdomsskoler</option>
+          <option value="efterskoler">Efterskoler</option>
+          <option value="specialundervisning">Specialundervisning</option>
+          <option value="efterskole-special">Efterskole (special)</option>
+        </select>
+      </div>
+      <div>
+        <label for="radius-slider"
+          >Radius: <span id="radius-value">10</span> km</label
+        >
+        <input type="range" id="radius-slider" min="1" max="50" value="10" />
+      </div>
+      <button id="search-button">Søg</button>
+    </div>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

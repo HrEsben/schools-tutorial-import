@@ -1,0 +1,23 @@
+{
+  "name": "mapbox-example",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.7.0",
+    "@mapbox/mapbox-sdk": "^0.13.7",
+    "express": "^4.17.1",
+    "mapbox-gl": "^2.8.1"
+  },
+  "devDependencies": {
+    "events": "^3.3.0",
+    "parcel": "^2.12.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

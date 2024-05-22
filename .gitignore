@@ -1,0 +1,13 @@
+node_modules
+all_maki_icons
+old_version
+dist
+broken_locations.geojson
+.parcel-cache
+.vscode
+cleanAndConvertCsvToGeoJson.js
+all_maki_icons.zip
+server.js
+locations.csv
+convertCsvToGeoJson.js
+.DS_Store
