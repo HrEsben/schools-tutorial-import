@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "start": "node server.js",
     "dev": "parcel src/index.html src/map.html --open",
     "build": "node fetch-geojson.js && parcel build src/index.html src/map.html && cp -R static/. dist/"
@@ -11,11 +12,15 @@
     "@mapbox/mapbox-gl-geocoder": "^4.7.0",
     "@mapbox/mapbox-sdk": "^0.13.7",
     "express": "^4.17.1",
-    "mapbox-gl": "^2.8.1"
+    "mapbox-gl": "^2.8.1",
+    "@parcel/watcher": "^2.0.0"
   },
   "devDependencies": {
     "events": "^3.3.0",
     "parcel": "^2.12.0"
+  },
+  "resolutions": {
+    "@parcel/watcher": "^2.0.0"
   },
   "keywords": [],
   "author": "",
