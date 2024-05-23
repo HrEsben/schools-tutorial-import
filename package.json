@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "parcel src/index.html src/map.html --open",
-    "build": "parcel build src/index.html src/map.html"
+    "build": "parcel build src/index.html src/map.html && cp -R static/. dist/"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.0",
