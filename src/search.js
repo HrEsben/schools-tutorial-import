@@ -7,7 +7,7 @@ export function searchNearbySchools(map, coordinates, schoolType, radius) {
 
   map.flyTo({ center: coordinates, zoom: 12 });
 
-  fetch("/src/locations.geojson") // Juster stien her
+  fetch("/locations.geojson") // Opdater stien her
     .then((response) => response.json())
     .then((data) => {
       console.log("GeoJSON data loaded:", data);
