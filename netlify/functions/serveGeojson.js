@@ -3,8 +3,14 @@ const path = require("path");
 
 exports.handler = async function (event, context) {
   try {
+    // Korrekt sti til locations.geojson
     const filePath = path.resolve(__dirname, "../../locations.geojson");
     console.log("Reading file from:", filePath); // Tilføjet logging
+
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`File not found: ${filePath}`);
+    }
+
     const fileContent = fs.readFileSync(filePath, "utf8");
     return {
       statusCode: 200,
