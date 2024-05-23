@@ -1,34 +1,36 @@
 import mapboxgl from "mapbox-gl";
-import { map } from "./map";
+import { getDistance } from "./utils.js";
 
-export function searchNearbySchools(address, schoolType, radius) {
-  const coordinates = address.center;
+export function searchNearbySchools(map, coordinates, schoolType, radius) {
+  console.log("Searching nearby schools...");
+  console.log("Coordinates:", coordinates);
 
   map.flyTo({ center: coordinates, zoom: 12 });
 
-  // Fetch schools data and filter by schoolType and radius
-  fetch("locations.geojson")
+  fetch("/src/locations.geojson") // Juster stien her
     .then((response) => response.json())
     .then((data) => {
+      console.log("GeoJSON data loaded:", data);
       const features = data.features
         .filter((feature) => {
-          const distance = calculateDistance(
+          const distance = getDistance(
             coordinates,
             feature.geometry.coordinates
           );
           return (
-            distance <= radius &&
+            distance <= radius * 1000 &&
             (schoolType === "all" || feature.properties.type === schoolType)
           );
         })
         .sort((a, b) => {
           return (
-            calculateDistance(coordinates, a.geometry.coordinates) -
-            calculateDistance(coordinates, b.geometry.coordinates)
+            getDistance(coordinates, a.geometry.coordinates) -
+            getDistance(coordinates, b.geometry.coordinates)
           );
         });
 
-      // Update listings
+      console.log("Filtered features:", features);
+
       const listings = document.getElementById("listings");
       listings.innerHTML = "";
       features.forEach((feature) => {
@@ -41,7 +43,6 @@ export function searchNearbySchools(address, schoolType, radius) {
         listings.appendChild(listing);
       });
 
-      // Add markers to map
       features.forEach((feature) => {
         new mapboxgl.Marker()
           .setLngLat(feature.geometry.coordinates)
@@ -52,19 +53,6 @@ export function searchNearbySchools(address, schoolType, radius) {
           )
           .addTo(map);
       });
-    });
-}
-
-function calculateDistance(coord1, coord2) {
-  const R = 6371; // Radius of the Earth in km
-  const dLat = ((coord2[1] - coord1[1]) * Math.PI) / 180;
-  const dLon = ((coord2[0] - coord1[0]) * Math.PI) / 180;
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((coord1[1] * Math.PI) / 180) *
-      Math.cos((coord2[1] * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
+    })
+    .catch((error) => console.error("Error loading the geoJSON data:", error));
 }

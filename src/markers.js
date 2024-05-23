@@ -1,7 +1,6 @@
-import map from "./map";
+import map from "./map.js";
 import * as mapboxgl from "mapbox-gl";
 
-// Fetch the geoJSON data
 fetch("/locations.geojson")
   .then((response) => response.json())
   .then((data) => {
@@ -28,8 +27,9 @@ fetch("/locations.geojson")
           )
           .addTo(map);
 
-        // Calculate distance and duration
-        const userLocation = [12.499443, 55.750595]; // Example user location
+        const userLocation = JSON.parse(
+          localStorage.getItem("searchAddress")
+        ).center;
         const schoolLocation = feature.geometry.coordinates;
         const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${userLocation[0]},${userLocation[1]};${schoolLocation[0]},${schoolLocation[1]}?alternatives=true&annotations=distance,duration&geometries=geojson&overview=full&steps=true&access_token=${mapboxgl.accessToken}`;
 
