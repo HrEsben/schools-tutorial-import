@@ -6,6 +6,7 @@
 [[plugins]]
   package = "netlify-plugin-fetch-feeds"
   [plugins.inputs]
+    dataDir = "src"  # Directory where fetched data should be saved
     feeds = [
       { url = "https://optus.dk/locations.geojson", target = "src/locations.geojson" }
     ]
