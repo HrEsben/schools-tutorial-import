@@ -10,8 +10,8 @@ https
   .get(url, (response) => {
     const file = fs.createWriteStream(targetPath);
     response.pipe(file);
-    file.on("finish", () => {
-      file.close();
+
+    file.on("close", () => {
       console.log("Downloaded locations.geojson to", targetPath);
       fs.copyFileSync(targetPath, distPath);
       console.log("Copied locations.geojson to", distPath);
