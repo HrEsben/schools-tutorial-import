@@ -7,10 +7,7 @@
   package = "netlify-plugin-fetch-feeds"
   [plugins.inputs]
     feeds = [
-      {
-        url = "https://optus.dk/locations.geojson"
-        target = "/locations.geojson"
-      }
+      { url = "https://optus.dk/locations.geojson", target = "src/locations.geojson" }
     ]
 
 [[redirects]]
