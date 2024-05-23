@@ -9,7 +9,7 @@
     feeds = [
       {
         url = "https://optus.dk/locations.geojson"
-        target = "src/locations.geojson"
+        target = "/locations.geojson"
       }
     ]
 
