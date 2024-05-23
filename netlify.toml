@@ -5,16 +5,16 @@
 
 [[plugins]]
   package = "netlify-plugin-fetch-feeds"
-
   [plugins.inputs]
-    # Directory where fetched data should be saved
     dataDir = "src"
-
-    # All the feeds we wish to gather for use in the build
-    [[plugins.inputs.feeds]]
-      name = "locations"
-      url = "https://optus.dk/locations.geojson"
-      target = "src/locations.geojson"
+    feeds = [
+      {
+        name = "locations"
+        url = "https://optus.dk/locations.geojson"
+        target = "src/locations.geojson"
+        ttl = 3600
+      }
+    ]
 
 [[redirects]]
   from = "/*"
