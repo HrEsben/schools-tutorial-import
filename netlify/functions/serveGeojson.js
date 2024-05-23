@@ -4,7 +4,7 @@ const path = require("path");
 exports.handler = async function (event, context) {
   try {
     const filePath = path.resolve(__dirname, "../../src/locations.geojson");
-    console.log("Reading file from:", filePath);
+    console.log("Trying to read file from:", filePath);
 
     if (!fs.existsSync(filePath)) {
       throw new Error(`File not found: ${filePath}`);

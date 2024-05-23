@@ -11,7 +11,7 @@ https
     response.pipe(file);
     file.on("finish", () => {
       file.close();
-      console.log("Downloaded locations.geojson");
+      console.log("Downloaded locations.geojson to", targetPath);
     });
   })
   .on("error", (err) => {
