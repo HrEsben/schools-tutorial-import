@@ -3,19 +3,6 @@
   publish = "dist"
   command = "npm run build"
 
-[[plugins]]
-  package = "netlify-plugin-fetch-feeds"
-  [plugins.inputs]
-    dataDir = "src"
-    feeds = [
-      {
-        name = "locations"
-        url = "https://optus.dk/locations.geojson"
-        target = "src/locations.geojson"
-        ttl = 3600
-      }
-    ]
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
