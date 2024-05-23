@@ -20,7 +20,10 @@ exports.handler = async function (event, context) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ error: "Failed to read locations.geojson" }),
+      body: JSON.stringify({
+        error: "Failed to read locations.geojson",
+        details: error.message,
+      }),
     };
   }
 };
