@@ -7,7 +7,7 @@ export function searchNearbySchools(map, coordinates, schoolType, radius) {
 
   map.flyTo({ center: coordinates, zoom: 12 });
 
-  fetch("/locations.geojson") // Opdater stien her
+  fetch("/.netlify/functions/serveGeojson")
     .then((response) => response.json())
     .then((data) => {
       console.log("GeoJSON data loaded:", data);
