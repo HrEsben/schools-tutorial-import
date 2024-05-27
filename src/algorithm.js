@@ -108,5 +108,12 @@ export async function calculateSafetyScore(start, end) {
   if (trafficLevel === "low") safetyScore += 10;
   else if (trafficLevel === "high") safetyScore -= 10;
 
-  return safetyScore;
+  return {
+    safetyScore,
+    roadCrossings,
+    sidewalk,
+    bikePath,
+    trafficLights,
+    trafficLevel,
+  };
 }
