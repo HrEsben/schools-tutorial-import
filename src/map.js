@@ -16,7 +16,7 @@ if (mapContainer) {
   // Initialiser et nyt Mapbox kort
   map = new mapboxgl.Map({
     container: "map", // ID på HTML-elementet til kortet
-    style: "mapbox://styles/mapbox/streets-v11", // Kort stil
+    style: "mapbox://styles/mapbox/standard", // Kort stil
     center: [12.568337, 55.676098], // Initiale koordinater (København)
     zoom: 12, // Initialt zoomniveau
   });
