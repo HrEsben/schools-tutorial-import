@@ -49,19 +49,11 @@ export async function searchNearbySchools(
 
     for (const feature of features) {
       // Calculate safety score for the route
-      console.log("Calculating safety score for feature:", feature);
       const safetyData = await calculateSafetyScore(
         coordinates,
         feature.geometry.coordinates
       );
-      console.log("Safety data for feature:", safetyData);
-
-      feature.properties.safetyScore = safetyData.safetyScore;
       feature.properties.roadCrossings = safetyData.roadCrossings;
-      feature.properties.sidewalk = safetyData.sidewalk;
-      feature.properties.bikePath = safetyData.bikePath;
-      feature.properties.trafficLights = safetyData.trafficLights;
-      feature.properties.trafficLevel = safetyData.trafficLevel;
 
       const listing = document.createElement("div");
       listing.className = "listing";
@@ -69,12 +61,7 @@ export async function searchNearbySchools(
         <h3>${feature.properties.navn}</h3>
         <p>${feature.properties.adr}</p>
         <p>Afstand: ${feature.properties.distance.toFixed(2)} km</p>
-        <p>Sikkerhedsscore: ${feature.properties.safetyScore}</p>
         <p>Vejovergange: ${feature.properties.roadCrossings}</p>
-        <p>Fortov: ${feature.properties.sidewalk ? "Ja" : "Nej"}</p>
-        <p>Cykelsti: ${feature.properties.bikePath ? "Ja" : "Nej"}</p>
-        <p>Trafiklys: ${feature.properties.trafficLights}</p>
-        <p>Trafikniveau: ${feature.properties.trafficLevel}</p>
       `;
       listings.appendChild(listing);
     }
@@ -89,17 +76,7 @@ export async function searchNearbySchools(
               feature.properties.adr
             }</p><p>Afstand: ${feature.properties.distance.toFixed(
               2
-            )} km</p><p>Sikkerhedsscore: ${
-              feature.properties.safetyScore
-            }</p><p>Vejovergange: ${
-              feature.properties.roadCrossings
-            }</p><p>Fortov: ${
-              feature.properties.sidewalk ? "Ja" : "Nej"
-            }</p><p>Cykelsti: ${
-              feature.properties.bikePath ? "Ja" : "Nej"
-            }</p><p>Trafiklys: ${
-              feature.properties.trafficLights
-            }</p><p>Trafikniveau: ${feature.properties.trafficLevel}</p>`
+            )} km</p><p>Vejovergange: ${feature.properties.roadCrossings}</p>`
           )
         )
         .addTo(map);
