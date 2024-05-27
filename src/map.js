@@ -5,7 +5,7 @@ import { searchNearbySchools } from "./search.js";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaHJlc2JlbiIsImEiOiJjbHdjNWp0N2swdzhzMmpwbGpqdXJxcjd6In0.RHcI7DpfwU7KebVqHsZJKA";
 
-// Find HTML elementet hvor kortet skal placeres
+// Find HTML-elementet hvor kortet skal placeres
 const mapContainer = document.getElementById("map");
 let map;
 
@@ -15,10 +15,10 @@ if (mapContainer) {
 
   // Initialiser et nyt Mapbox kort
   map = new mapboxgl.Map({
-    container: "map", // ID på HTML elementet til kortet
+    container: "map", // ID på HTML-elementet til kortet
     style: "mapbox://styles/mapbox/streets-v11", // Kort stil
     center: [12.568337, 55.676098], // Initiale koordinater (København)
-    zoom: 12, // Initialt zoom niveau
+    zoom: 12, // Initialt zoomniveau
   });
 
   // Håndter "load" eventen når kortet er fuldt indlæst
