@@ -56,6 +56,7 @@ export function searchNearbySchools(map, coordinates, schoolType, radius) {
           <p>${feature.properties.adr}</p>
         `;
         listings.appendChild(listing);
+        console.log(listing);
       });
 
       // Add markers to the map for each filtered feature
