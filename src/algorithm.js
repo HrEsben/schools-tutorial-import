@@ -20,7 +20,8 @@ export async function countRoadCrossings(start, end) {
   let roadCrossings = 0;
 
   for (const step of steps) {
-    if (step.maneuver.type === "cross") {
+    // Antag, at en vejovergang sker ved hvert "turn" eller "new name" manøvre
+    if (step.maneuver.type === "turn" || step.maneuver.type === "new name") {
       roadCrossings++;
     }
   }
