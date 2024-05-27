@@ -49,10 +49,13 @@ export async function searchNearbySchools(
 
     for (const feature of features) {
       // Calculate safety score for the route
+      console.log("Calculating safety score for feature:", feature);
       const safetyData = await calculateSafetyScore(
         coordinates,
         feature.geometry.coordinates
       );
+      console.log("Safety data for feature:", safetyData);
+
       feature.properties.safetyScore = safetyData.safetyScore;
       feature.properties.roadCrossings = safetyData.roadCrossings;
       feature.properties.sidewalk = safetyData.sidewalk;

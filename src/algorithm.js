@@ -8,12 +8,15 @@ const directionsService = mbxDirections({ accessToken: mapboxgl.accessToken });
 
 // Funktion til at udregne antal vejovergange
 export async function countRoadCrossings(start, end) {
+  console.log("Count road crossings from:", start, "to:", end);
   const response = await directionsService
     .getDirections({
       profile: "walking",
       waypoints: [{ coordinates: start }, { coordinates: end }],
     })
     .send();
+
+  console.log("Directions response:", response);
 
   const steps = response.body.routes[0].legs[0].steps;
   let roadCrossings = 0;
@@ -24,17 +27,21 @@ export async function countRoadCrossings(start, end) {
     }
   }
 
+  console.log("Road crossings:", roadCrossings);
   return roadCrossings;
 }
 
 // Funktion til at kontrollere om der er fortov eller cykelsti
 export async function checkSidewalkAndBikePath(start, end) {
+  console.log("Check sidewalk and bike path from:", start, "to:", end);
   const response = await directionsService
     .getDirections({
       profile: "walking",
       waypoints: [{ coordinates: start }, { coordinates: end }],
     })
     .send();
+
+  console.log("Directions response:", response);
 
   const steps = response.body.routes[0].legs[0].steps;
   let sidewalk = false;
@@ -53,17 +60,21 @@ export async function checkSidewalkAndBikePath(start, end) {
     }
   }
 
+  console.log("Sidewalk:", sidewalk, "Bike path:", bikePath);
   return { sidewalk, bikePath };
 }
 
 // Funktion til at kontrollere om der er lyskryds
 export async function checkTrafficLights(start, end) {
+  console.log("Check traffic lights from:", start, "to:", end);
   const response = await directionsService
     .getDirections({
       profile: "walking",
       waypoints: [{ coordinates: start }, { coordinates: end }],
     })
     .send();
+
+  console.log("Directions response:", response);
 
   const steps = response.body.routes[0].legs[0].steps;
   let trafficLights = 0;
@@ -74,19 +85,23 @@ export async function checkTrafficLights(start, end) {
     }
   }
 
+  console.log("Traffic lights:", trafficLights);
   return trafficLights;
 }
 
 // Funktion til at kontrollere om vejen er meget trafikkeret
 export async function checkTrafficLevel(start, end) {
+  console.log("Check traffic level from:", start, "to:", end);
   // For simple demonstration, we assume all roads are equally trafficked
   // Replace with actual traffic data API call for better accuracy
   const trafficLevel = "medium"; // Options: 'low', 'medium', 'high'
+  console.log("Traffic level:", trafficLevel);
   return trafficLevel;
 }
 
 // Funktion til at beregne sikkerhedsscore for en rute
 export async function calculateSafetyScore(start, end) {
+  console.log("Calculating safety score from:", start, "to:", end);
   const roadCrossings = await countRoadCrossings(start, end);
   const { sidewalk, bikePath } = await checkSidewalkAndBikePath(start, end);
   const trafficLights = await checkTrafficLights(start, end);
@@ -108,7 +123,7 @@ export async function calculateSafetyScore(start, end) {
   if (trafficLevel === "low") safetyScore += 10;
   else if (trafficLevel === "high") safetyScore -= 10;
 
-  return {
+  const safetyData = {
     safetyScore,
     roadCrossings,
     sidewalk,
@@ -116,4 +131,7 @@ export async function calculateSafetyScore(start, end) {
     trafficLights,
     trafficLevel,
   };
+
+  console.log("Safety data:", safetyData);
+  return safetyData;
 }
