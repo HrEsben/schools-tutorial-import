@@ -1,6 +1,9 @@
 import mbxDirections from "@mapbox/mapbox-sdk/services/directions";
 import mapboxgl from "mapbox-gl";
 
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiaHJlc2JlbiIsImEiOiJjbHdjNWp0N2swdzhzMmpwbGpqdXJxcjd6In0.RHcI7DpfwU7KebVqHsZJKA";
+
 const directionsService = mbxDirections({ accessToken: mapboxgl.accessToken });
 
 // Funktion til at udregne antal vejovergange
