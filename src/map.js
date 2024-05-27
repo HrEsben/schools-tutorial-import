@@ -16,14 +16,46 @@ if (mapContainer) {
   // Initialiser et nyt Mapbox kort
   map = new mapboxgl.Map({
     container: "map", // ID på HTML-elementet til kortet
-    style: "mapbox://styles/mapbox/streets-v11", // Kort stil
+    style: "mapbox://styles/mapbox/streets-v12", // 3D Kort stil
     center: [12.568337, 55.676098], // Initiale koordinater (København)
     zoom: 12, // Initialt zoomniveau
   });
 
-  // Håndter "load" eventen når kortet er fuldt indlæst
+  // Tilføj 3D bygninger til kortet
   map.on("load", () => {
     console.log("Map loaded");
+
+    // Tilføj en lag for at vise 3D bygninger
+    map.addLayer({
+      id: "3d-buildings",
+      source: "composite",
+      "source-layer": "building",
+      filter: ["==", "extrude", "true"],
+      type: "fill-extrusion",
+      minzoom: 15,
+      paint: {
+        "fill-extrusion-color": "#aaa",
+        "fill-extrusion-height": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          0,
+          15.05,
+          ["get", "height"],
+        ],
+        "fill-extrusion-base": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          0,
+          15.05,
+          ["get", "min_height"],
+        ],
+        "fill-extrusion-opacity": 0.6,
+      },
+    });
 
     // Hent søgeparametre fra lokal lagring
     const address = JSON.parse(localStorage.getItem("searchAddress"));
