@@ -12,10 +12,16 @@ export async function countRoadCrossings(start, end) {
     .getDirections({
       profile: "walking",
       waypoints: [{ coordinates: start }, { coordinates: end }],
+      steps: true, // Inkluderer detaljerede trin i svar
     })
     .send();
 
   console.log("Directions response (countRoadCrossings):", response);
+  if (!response.body.routes || response.body.routes.length === 0) {
+    console.error("No routes found in the directions response.");
+    return 0;
+  }
+
   const steps = response.body.routes[0].legs[0].steps;
   let roadCrossings = 0;
 
@@ -28,7 +34,6 @@ export async function countRoadCrossings(start, end) {
       "modifier:",
       step.maneuver.modifier
     );
-    // Antag, at en vejovergang sker ved hvert "turn" eller "new name" manøvre
     if (step.maneuver.type === "turn" || step.maneuver.type === "new name") {
       roadCrossings++;
     }
