@@ -1,14 +1,8 @@
 [build]
-  base = "/"
   publish = "dist"
   command = "npm run build"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/locations.geojson"
-  to = "/.netlify/functions/serveGeojson"
   status = 200
