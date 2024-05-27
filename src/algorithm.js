@@ -19,13 +19,22 @@ export async function countRoadCrossings(start, end) {
   const steps = response.body.routes[0].legs[0].steps;
   let roadCrossings = 0;
 
+  console.log("Steps:", steps);
+
   for (const step of steps) {
+    console.log(
+      "Step maneuver type:",
+      step.maneuver.type,
+      "modifier:",
+      step.maneuver.modifier
+    );
     // Antag, at en vejovergang sker ved hvert "turn" eller "new name" manøvre
     if (step.maneuver.type === "turn" || step.maneuver.type === "new name") {
       roadCrossings++;
     }
   }
 
+  console.log("Calculated road crossings:", roadCrossings);
   return roadCrossings;
 }
 
