@@ -1,5 +1,12 @@
 import mapboxgl from "mapbox-gl";
 import { getDistance } from "./utils.js";
+import {
+  calculateSafetyScore,
+  countRoadCrossings,
+  checkSidewalkAndBikePath,
+  checkTrafficLights,
+  checkTrafficLevel,
+} from "./algorithm.js";
 
 /**
  * Function to search for nearby schools based on coordinates, school type, and radius.
@@ -46,17 +53,24 @@ export async function searchNearbySchools(
     const listings = document.getElementById("listings");
     listings.innerHTML = "";
 
-    // Create and append listings for each filtered feature
-    features.forEach((feature) => {
+    for (const feature of features) {
+      // Calculate safety score for the route
+      const safetyScore = await calculateSafetyScore(
+        coordinates,
+        feature.geometry.coordinates
+      );
+      feature.properties.safetyScore = safetyScore;
+
       const listing = document.createElement("div");
       listing.className = "listing";
       listing.innerHTML = `
         <h3>${feature.properties.navn}</h3>
         <p>${feature.properties.adr}</p>
         <p>Afstand: ${feature.properties.distance.toFixed(2)} km</p>
+        <p>Sikkerhedsscore: ${safetyScore}</p>
       `;
       listings.appendChild(listing);
-    });
+    }
 
     // Add markers to the map for each filtered feature
     features.forEach((feature) => {
@@ -66,7 +80,9 @@ export async function searchNearbySchools(
           new mapboxgl.Popup().setHTML(
             `<h3>${feature.properties.navn}</h3><p>${
               feature.properties.adr
-            }</p><p>Afstand: ${feature.properties.distance.toFixed(2)} km</p>`
+            }</p><p>Afstand: ${feature.properties.distance.toFixed(
+              2
+            )} km</p><p>Sikkerhedsscore: ${feature.properties.safetyScore}</p>`
           )
         )
         .addTo(map);
