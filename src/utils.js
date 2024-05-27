@@ -1,3 +1,10 @@
+/**
+ * Function to calculate the distance between two coordinates using the Haversine formula.
+ *
+ * @param {array} coord1 - Array containing the latitude and longitude of the first coordinate.
+ * @param {array} coord2 - Array containing the latitude and longitude of the second coordinate.
+ * @returns {number} - The distance between the two coordinates in meters.
+ */
 export function getDistance(coord1, coord2) {
   const R = 6371e3; // Earth's radius in meters
   const φ1 = (coord1[1] * Math.PI) / 180;
